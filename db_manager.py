@@ -37,7 +37,7 @@ class DBManager:
     def update_user(self, user_id, update_data):
         # 사용자 정보 수정
         result = self.users.update_one({"_id": user_id}, {"$set": update_data})
-        return result.modified_count > 0
+        return result
 
     def delete_user(self, user_id):
         # 사용자 삭제

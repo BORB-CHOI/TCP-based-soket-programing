@@ -61,8 +61,11 @@ def handle_post_invalid():
 # PUT 요청 처리
 def handle_put_users_1(body):
     # ID 1 사용자 정보 수정
-    if db.update_user("1", body or {}):
+    result = db.update_user("1", body or {})
+    if result.modified_count > 0:
         return 200, "User updated"
+    elif result.matched_count > 0:
+        return 200, "No changes made"
     return 404, "User not found"
 
 
