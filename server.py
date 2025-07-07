@@ -89,7 +89,10 @@ print(f"서버 시작: {os.environ.get('HOST')}:{os.environ.get('PORT')}")
 # 클라이언트 연결 대기 및 처리 루프
 while True:
     conn, addr = server_socket.accept()
-    request = conn.recv(4096).decode()
-    response = handle_request(request)
-    conn.sendall(response)
+    while True:
+        request = conn.recv(4096).decode()
+        if not request:
+            break  # 클라이언트가 연결을 끊으면 루프 탈출
+        response = handle_request(request)
+        conn.sendall(response)
     conn.close()

@@ -4,6 +4,10 @@ import json, os
 
 load_dotenv()
 
+# 소켓 생성
+sock = socket(AF_INET, SOCK_STREAM)
+sock.connect((os.environ.get("HOST"), int(os.environ.get("PORT"))))
+
 # 서버로 HTTP 요청을 보내는 함수
 def send_http_request(method, path, body=None):
     # 요청 라인 및 헤더 작성
@@ -20,9 +24,7 @@ def send_http_request(method, path, body=None):
     else:
         request += "Content-Length: 0"
 
-    # 소켓 생성 및 요청 송신
-    sock = socket(AF_INET, SOCK_STREAM)
-    sock.connect((os.environ.get("HOST"), int(os.environ.get("PORT"))))
+    # 요청 송신
     sock.sendall(request.encode())
 
     # 서버 응답 수신 및 출력
@@ -34,7 +36,6 @@ def send_http_request(method, path, body=None):
     print(response)
     print("-" * 50)
 
-    sock.close()
     return response
 
 
@@ -60,3 +61,6 @@ for i, (method, path, body) in enumerate(test_cases, 1):
     status_line = response.split("\r\n")[0]
     print(f"[{i:2d}] {method:6} {path:12} → {status_line}")
     print("=" * 70)
+
+# 소켓 종료
+sock.close()

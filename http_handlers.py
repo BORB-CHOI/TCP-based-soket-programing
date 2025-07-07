@@ -3,7 +3,6 @@ import json
 
 db = DBManager()
 
-
 # HEAD 요청 처리
 def handle_head_info():
     # 100 Continue 응답
