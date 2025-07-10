@@ -6,7 +6,7 @@ from email.utils import formatdate
 
 load_dotenv()
 
-# HTTP 응답 메시지 생성 함수
+# HTTP 응답 함수
 def http_response(status_code, body="", content_type="text/plain"):
     status_texts = {
         100: "Continue",
@@ -48,7 +48,7 @@ ROUTES = {
 }
 
 
-# HTTP 요청 처리 메인 함수
+# HTTP 요청 처리 함수
 def handle_request(request):
     # 요청 라인 파싱
     lines = request.split("\r\n")

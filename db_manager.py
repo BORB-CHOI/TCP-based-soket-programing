@@ -4,7 +4,11 @@ import os
 
 load_dotenv()
 
-MONGODB_URI = f"mongodb+srv://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_CLUSTER')}?retryWrites=true&w=majority&appName=CS"
+MONGODB_URI = (
+    f"mongodb+srv://{os.environ.get('DB_USER')}:"
+    f"{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_CLUSTER')}"
+    "?retryWrites=true&w=majority&appName=CS"
+)
 
 class DBManager:
     """MongoDB 관련 DB 관리 기능"""

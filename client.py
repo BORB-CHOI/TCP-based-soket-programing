@@ -8,7 +8,7 @@ load_dotenv()
 sock = socket(AF_INET, SOCK_STREAM)
 sock.connect((os.environ.get("HOST"), int(os.environ.get("PORT"))))
 
-# 서버로 HTTP 요청을 보내는 함수
+# HTTP 요청 함수
 def send_http_request(method, path, body=None):
     # 요청 라인 및 헤더 작성
     request = f"{method} {path} HTTP/1.1\r\n"
@@ -22,7 +22,7 @@ def send_http_request(method, path, body=None):
         request += "\r\n"
         request += body_str
     else:
-        request += "Content-Length: 0"
+        request += "Content-Length: 0\r\n\r\n"
 
     # 요청 송신
     sock.sendall(request.encode())
@@ -39,7 +39,7 @@ def send_http_request(method, path, body=None):
     return response
 
 
-# 다양한 HTTP 메서드/경로 테스트 케이스
+# HTTP 메서드/경로 테스트 케이스
 test_cases = [
     ("HEAD", "/info", None),  # 100 Continue
     ("GET", "/users", None),  # 200 OK
